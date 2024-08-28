@@ -1,0 +1,350 @@
+{
+    "Intents": [
+        {
+            "tag": "saludos",
+            "patterns": [
+                "¡Hola!",
+                "hola",
+                "holaa",
+                "Buenos días",
+                "buenos dias",
+                "buenos días",
+                "Buenas tardes",
+                "buenas tardes",
+                "Buenas noches",
+                "buenas noches"
+            ],
+            "responses": [
+                "¡Hola!, ¿En qué puedo ayudarte?",
+                "¡Hola! Estoy aquí para responder tus pregunta",
+                "Buenas, ¿en qué puedo asistirte?"
+            ]
+        },
+        {
+            "tag":"consulta",
+            "patterns":[
+                "tengo una consulta",
+                "Tengo una consulta",
+                "tengo una duda",
+                "Tengo una duda",
+                "necesito ayuda",
+                "Necesito ayuda"
+            ],
+            "responses":[
+                "Dime, ¿cómo puedo ayudarte?",
+                "Estoy aquí para resolver tus preguntas"
+            ]
+        },
+
+      
+        {
+        "tag": "factory_method_pattern",
+        "patterns": [
+            "Cómo puedo crear objetos de diferentes clases relacionadas sin exponer la lógica de creación al cliente",
+            "Qué patrón debo usar para manejar la creación de objetos relacionados sin revelar los detalles de la implementación",
+            "Cuál es el mejor patrón para encapsular el proceso de creación de objetos en una aplicación",
+            "Cómo puedo definir una interfaz para la creación de objetos pero permitir que las subclases decidan qué clase instanciar"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Factory Method"
+            }
+        ]
+    },
+    {
+        "tag": "abstract_factory_pattern",
+        "patterns": [
+            "Cómo puedo crear familias de objetos relacionados sin especificar sus clases concretas",
+            "Qué patrón debo usar para proporcionar una interfaz para crear familias de objetos relacionados",
+            "Cuál es el mejor patrón para la creación de objetos de diferentes tipos pero relacionados",
+            "Cómo puedo diseñar un sistema que produzca familias de objetos sin necesidad de conocer sus clases concretas"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Abstract Factory"
+            }
+        ]
+    },
+    {
+        "tag": "adapter_pattern",
+        "patterns": [
+            "Cómo puedo hacer que dos clases con interfaces incompatibles trabajen juntas",
+            "Qué patrón debo usar para adaptar una clase a una interfaz esperada por un cliente",
+            "Cuál es el mejor patrón para convertir la interfaz de una clase en otra interfaz compatible",
+            "Cómo puedo integrar dos clases con interfaces diferentes"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Adapter"
+            }
+        ]
+    },
+    {
+        "tag": "bridge_pattern",
+        "patterns": [
+            "Cómo puedo desacoplar una abstracción de su implementación para que ambas puedan variar independientemente",
+            "Qué patrón debo usar para separar una abstracción de su implementación",
+            "Cuál es el mejor patrón para permitir que una abstracción y su implementación evolucionen de manera independiente",
+            "Cómo puedo diseñar un sistema que permita cambiar la implementación sin alterar la interfaz"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Bridge"
+            }
+        ]
+    },
+    {
+        "tag": "chain_of_responsibility_pattern",
+        "patterns": [
+            "Cómo puedo desacoplar el remitente de una solicitud de su manejo",
+            "Qué patrón debo usar para permitir que más de un objeto tenga la oportunidad de manejar una solicitud",
+            "Cuál es el mejor patrón para pasar una solicitud a lo largo de una cadena de objetos hasta que alguno la maneje",
+            "Cómo puedo diseñar un sistema que permita a varios objetos tener la posibilidad de manejar una solicitud"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Chain of Responsibility"
+            }
+        ]
+    },
+    {
+        "tag": "command_pattern",
+        "patterns": [
+            "Cómo puedo encapsular una solicitud como un objeto para permitir que el cliente parametrice con diferentes solicitudes",
+            "Qué patrón debo usar para permitir que las operaciones puedan deshacerse o ejecutarse en un momento posterior",
+            "Cuál es el mejor patrón para encapsular operaciones y permitir la cola de solicitudes",
+            "Cómo puedo diseñar un sistema que permita deshacer y repetir acciones"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Command"
+            }
+        ]
+    },
+    {
+        "tag": "iterator_pattern",
+        "patterns": [
+            "Cómo puedo proporcionar una forma de acceder secuencialmente a los elementos de un objeto agregado sin exponer su representación subyacente",
+            "Qué patrón debo usar para iterar sobre una colección de objetos sin exponer su estructura interna",
+            "Cuál es el mejor patrón para recorrer una colección de objetos de manera flexible",
+            "Cómo puedo diseñar un sistema que permita recorrer elementos de una colección de manera uniforme"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Iterator"
+            }
+        ]
+    },
+    {
+        "tag": "mediator_pattern",
+        "patterns": [
+            "Cómo puedo reducir las dependencias directas entre objetos que se comunican",
+            "Qué patrón debo usar para evitar el acoplamiento entre objetos que necesitan interactuar",
+            "Cuál es el mejor patrón para gestionar la comunicación entre múltiples objetos de manera centralizada",
+            "Cómo puedo diseñar un sistema que facilite la interacción entre objetos sin que estos estén directamente acoplados"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Mediator"
+            }
+        ]
+    },
+    {
+        "tag": "builder_pattern",
+        "patterns": [
+            "Cómo puedo construir un objeto complejo paso a paso",
+            "Qué patrón debo usar para crear diferentes representaciones de un objeto utilizando el mismo proceso de construcción",
+            "Cuál es el mejor patrón para separar la construcción de un objeto de su representación",
+            "Cómo puedo manejar la creación de objetos complejos de manera flexible"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Builder"
+            }
+        ]
+    },
+    {
+        "tag": "prototype_pattern",
+        "patterns": [
+            "Cómo puedo crear nuevos objetos copiando un objeto existente",
+            "Qué patrón debo usar para clonar objetos sin conocer sus clases concretas",
+            "Cuál es el mejor patrón para crear objetos a partir de prototipos existentes",
+            "Cómo puedo crear múltiples objetos similares mediante copia"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Prototype"
+            }
+        ]
+    },
+    {
+        "tag": "composite_pattern",
+        "patterns": [
+            "Cómo puedo componer objetos en estructuras de árbol para representar jerarquías parte-todo",
+            "Qué patrón debo usar para tratar objetos individuales y compuestos de manera uniforme",
+            "Cuál es el mejor patrón para manejar jerarquías de objetos complejas en un sistema",
+            "Cómo puedo diseñar un sistema que permita a los clientes tratar elementos individuales y compuestos de la misma manera"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Composite"
+            }
+        ]
+    },
+    {
+        "tag": "decorator_pattern",
+        "patterns": [
+            "Qué patrón debo usar para agregar responsabilidades a un objeto de manera dinámica sin modificar su código",
+            "Cómo puedo extender las funcionalidades de un objeto de forma flexible y dinámica",
+            "Cuál es el patrón adecuado para añadir responsabilidades a los objetos de manera dinámica",
+            "Cómo puedo añadir comportamiento adicional a un objeto sin modificar su código original"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Decorator"
+            }
+        ]
+    },
+    {
+        "tag": "memento_pattern",
+        "patterns": [
+            "Cómo puedo capturar y restaurar el estado interno de un objeto sin violar el encapsulamiento",
+            "Qué patrón debo usar para permitir la reversión a un estado anterior en un objeto",
+            "Cuál es el mejor patrón para guardar el estado de un objeto y restaurarlo más tarde",
+            "Cómo puedo diseñar un sistema que permita guardar y restaurar el estado de un objeto de manera segura"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Memento"
+            }
+        ]
+    },
+    {
+        "tag": "observer_pattern",
+        "patterns": [
+            "Qué patrón debo usar para notificar a otros objetos cuando el estado de un objeto cambia",
+            "Cuál es el patrón adecuado para implementar notificaciones entre objetos",
+            "Cómo puedo hacer que un objeto informe a otros cuando cambie su estado",
+            "Qué patrón de diseño me ayuda a manejar la dependencia de uno a muchos entre objetos"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Observer"
+            }
+        ]
+    },
+    {
+        "tag": "state_pattern",
+        "patterns": [
+            "Qué patrón debo usar para permitir que un objeto cambie su comportamiento cuando su estado interno cambia",
+            "Cuál es el patrón de diseño adecuado para cambiar el comportamiento de un objeto basado en su estado",
+            "Cómo puedo hacer que un objeto altere su comportamiento dependiendo de su estado",
+            "Qué patrón puedo usar para manejar cambios de comportamiento en función del estado interno de un objeto"
+        ],
+        "responses": [
+            {
+                "pattern_name": "State"
+            }
+        ]
+    },
+    {
+        "tag": "strategy_pattern",
+        "patterns": [
+            "Cómo puedo definir una familia de algoritmos y hacerlos intercambiables",
+            "Qué patrón debo usar para permitir la selección de un algoritmo en tiempo de ejecución",
+            "Cuál es el mejor patrón para encapsular algoritmos y permitir su variación independiente del cliente",
+            "Cómo puedo manejar la selección dinámica de algoritmos en mi aplicación"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Strategy"
+            }
+        ]
+    },
+    {
+        "tag": "singleton_pattern",
+        "patterns": [
+            "Cómo puedo asegurarme de que una clase tenga solo una instancia",
+            "Qué patrón debo usar para garantizar que una clase tenga una única instancia accesible globalmente",
+            "Cuál es el mejor patrón para controlar el número de instancias de una clase",
+            "Cómo puedo restringir la creación de instancias de una clase a solo una"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Singleton"
+            }
+        ]
+    },
+    {
+        "tag": "facade_pattern",
+        "patterns": [
+            "Cómo puedo simplificar la interfaz de un subsistema complejo",
+            "Qué patrón de diseño debo usar para proporcionar una interfaz simplificada a un sistema complicado",
+            "Cuál es el mejor patrón para crear una interfaz unificada para un conjunto de interfaces en un subsistema",
+            "Cómo puedo hacer que un subsistema complejo sea más fácil de usar con una interfaz simple"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Facade"
+            }
+        ]
+    },
+    {
+        "tag": "flyweight_pattern",
+        "patterns": [
+            "Cómo puedo reducir el consumo de memoria al usar un gran número de objetos similares",
+            "Qué patrón debo usar para compartir objetos de manera eficiente en memoria",
+            "Cuál es el mejor patrón para manejar un gran número de objetos con alta eficiencia en memoria",
+            "Cómo puedo compartir de manera eficiente partes comunes de objetos para reducir el uso de memoria"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Flyweight"
+            }
+        ]
+    },
+    {
+        "tag": "template_method_pattern",
+        "patterns": [
+            "Cómo puedo definir el esqueleto de un algoritmo en una clase base y permitir que las subclases modifiquen ciertos pasos",
+            "Qué patrón debo usar para implementar un algoritmo donde algunas partes puedan ser modificadas por subclases",
+            "Cuál es el mejor patrón para crear un método con pasos fijos y otros que pueden ser sobrescritos",
+            "Cómo puedo diseñar un sistema que permita que las subclases alteren partes de un algoritmo sin modificar su estructura general"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Template Method"
+            }
+        ]
+    },
+    {
+        "tag": "visitor_pattern",
+        "patterns": [
+            "Cómo puedo definir una nueva operación sin cambiar las clases de los elementos sobre los que opera",
+            "Qué patrón debo usar para separar un algoritmo de la estructura de objetos sobre los que opera",
+            "Cuál es el mejor patrón para realizar operaciones en objetos de una estructura sin modificar sus clases",
+            "Cómo puedo añadir nuevas operaciones a una jerarquía de clases sin modificar las clases existentes"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Visitor"
+            }
+        ]
+    },
+    {
+        "tag": "proxy_pattern",
+        "patterns": [
+            "Cómo puedo proporcionar un sustituto o placeholder para controlar el acceso a un objeto",
+            "Qué patrón debo usar para controlar el acceso a un objeto que puede ser costoso o complejo de crear",
+            "Cuál es el mejor patrón para permitir que un objeto actúe como un intermediario para controlar el acceso a otro objeto",
+            "Cómo puedo diseñar un sistema que gestione el acceso a recursos costosos de manera eficiente"
+        ],
+        "responses": [
+            {
+                "pattern_name": "Proxy"
+            }
+        ]
+    }
+      
+        
+}
