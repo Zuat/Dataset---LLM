@@ -21,8 +21,8 @@ stop_words = set(stopwords.words('english'))
 with open('datasetPT.json', 'r', encoding='utf-8') as file:
     dataset = json.load(file)
 
-# Inicializar BERT
-model_name = "bert-base-uncased"
+# Inicializar RoBERTa
+model_name = "roberta-base"  
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModel.from_pretrained(model_name)
 
@@ -34,11 +34,11 @@ def preprocess_text(text):
     text = ' '.join(filtered_words)
     return text
 
-# Función para convertir texto en embeddings usando BERT
+# Función para convertir texto en embeddings usando RoBERTa
 def get_embeddings(text):
     # Tokenizar el texto
     inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True)
-    # Pasar los tokens por el modelo BERT
+    # Pasar los tokens por el modelo RoBERTa
     with torch.no_grad():
         outputs = model(**inputs)
     # Usar las últimas representaciones ocultas como embeddings
@@ -70,6 +70,7 @@ def generate_response(prompt):
         response = random.choice(best_intent['responses'])
         
     return response
+
 
 
 # # Función para manejar la entrada del usuario
