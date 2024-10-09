@@ -14,14 +14,14 @@ except LookupError:
     nltk.download('stopwords')
 
 #Crear una lista de stopwords en español
-stop_words = set(stopwords.words('inglish'))
+stop_words = set(stopwords.words('english'))
 
 # Cargar el archivo JSON
 with open('datasetPT.json', 'r', encoding='utf-8') as file:
     dataset = json.load(file)
 
 # Inicializar el modelo GPT-2 en español
-model_name = "datificate/gpt2-small-inglish"
+model_name = "datificate/gpt2-small-english"
 model = AutoModelForCausalLM.from_pretrained(model_name)
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 
