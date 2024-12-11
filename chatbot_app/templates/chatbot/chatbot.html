@@ -1,0 +1,285 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot</title>
+    <link type='text/css' href="{% static 'css/estilo.css' %} " rel='stylesheet'/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    {% comment %} <script src="{% static 'static/js/codigo.js' %}"></script> {% endcomment %}
+
+    
+</head>
+<body>
+    <!-- Área del chat -->
+    <div id="chat-container">
+        <!-- Encabezado del chat con iconos -->
+        <div class="box-header with-border">
+            <img src="{% static "img/chatbot.png" %}" alt="Chatbot Avatar" class="chatbot-avatar" style="width:35px; height:35px;">
+            <h3 class="box-title">PatternMind</h3>
+            {% comment %} <img src="{% static "img/logoUbb.png" %}" alt="logo" style="width:30px; height:30px;position: absolute;left: 45%;transform: translateX(-50%);top: 50%;transform: translateY(-50%);"> {% endcomment %}
+            
+
+            {% comment %} <div id="chat-header-icons">
+                <!-- Icono de comentarios -->
+                <img src="{% static 'img/comentario.png' %}" alt="Comentarios" style="margin-right: 10px;width:30px; height:30px;">
+                <!-- Icono de signo de pregunta -->
+                <img src="{% static 'img/pregunta.png' %}" alt="Pregunta" style="margin-right: 10px;width:30px; height:30px;">
+                <!-- Icono para minimizar la barra -->
+                <img src="{% static 'img/minimizar.png' %}" alt="Minimizar" style="margin-right: 10px;width:30px; height:30px;">     
+            </div> {% endcomment %}
+        </div>
+    
+        <div id="chat-content">
+            <div id="chatbox">
+                <div class="welcome-message" style="margin-bottom: 10px; max-width: 60%; min-width: 200px; background-color: #6ee481; color: white; text-align: left; padding: 5px; border-radius: 20px; position: relative; padding-left: 2%; margin-left: 40px;">
+                    <img src="{% static 'img/chatbot.png' %}" alt="Chatbot Avatar" class="chatbot-avatar" style="width:35px; height:35px; position: absolute; left: -40px; top: 50%; transform: translateY(-50%);">
+                    {{ welcome_message }}
+                </div>
+                <!-- Contenedor para las preguntas sugeridas -->
+            <div id="suggested-questions-container"></div>
+                {% comment %} <div>
+                    <p><strong>preguntas sugeridas:</strong></p>
+                    <ul>
+                        {% for question in suggested_questions %}
+                            <li> <a href="#" class="suggested-question"> {{question}}</a> </li>
+                        {% endfor %}
+                    </ul>
+                </div> {% endcomment %}
+                
+            </div>
+            <div id="input-container">
+                <input type="text" id="user-input" placeholder="Write your question">
+                <button id="send-button" onclick="sendMessage()">
+                    <img src="{% static 'img/botonSend.png' %}" alt="Enviar">
+                </button>
+            </div>
+        </div>
+        
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        //Funcion para manejar la seleccion de preguntas sugeridas
+        // Función para mostrar las preguntas sugeridas y manejar la selección
+        function showSuggestedQuestions(questions) {
+            // Limpiar las sugerencias anteriores
+            $('.suggested-questions').remove();
+
+            $('#chatbox').append('<div class="suggested-questions" style="text-align:center;"><strong style="text-align:center;">Suggested questions:</strong></div>');
+            var ul = $('<ul>');
+
+            questions.forEach(function(question) {
+                var li = $('<li>');
+                var link = $('<a>').addClass('suggested-question').text(question);
+                link.on('click', function() {
+                    $('#user-input').val(question);
+                    sendMessage();
+                });
+                li.append(link);
+                ul.append(li);
+            });
+
+            $('.suggested-questions').append(ul);
+        }
+        
+        function sendMessage() {
+            var user_input = $('#user-input').val();
+            $('#user-input').val('');
+
+            // Enviar la entrada del usuario al servidor
+            $.ajax({
+                type: 'POST',
+                url: '/chatbot/',  
+                data: {'user_input': user_input, csrfmiddlewaretoken: '{{ csrf_token }}'},
+                dataType: 'json',
+                success: function(data) {
+                    // Mostrar la respuesta del chatbot en el chatbox
+                    //recuadro de usuario
+                    $('#chatbox').append('<div style="margin-bottom: 10px; background-color:#8b52c7; width: fit-content; max-width: 65%; color: white; text-align: center; padding: 2px 5px; border-radius: 20px; display: flex; flex-direction: column; align-items: center; position: relative; margin-left: auto; margin-right: 50px;">' +
+                        '<div class="message-content chatbot" style="max-width: calc(100% - 2px); word-wrap: break-word; text-align: right;">' + user_input + '</div>' +
+                        '<img src="{% static "img/usuario.png" %}" alt="Chatbot Avatar" class="chatbot-avatar" style="width:35px; height:35px; position: absolute; right: -40px; top: 50%; transform: translateY(-50%);">' +
+                        '</div>');
+
+                    if(esPregunta(user_input)){
+                        $('#chatbox').append('<div style="margin-bottom: 10px; background-color:#0040B0; color: white; text-align: left; padding: 10px; border-radius: 5px;display:flex; align-items: flex-start;justify-content: flex-start;"">' +
+                            '<img src="{% static "img/chatbot.png" %}" alt="Chatbot Avatar" class="chatbot-avatar" style="width:30px; height:30px;">' +
+                            '<div class="message-content chatbot" style="word-wrap: break-word;">' + data.response + '</div>' +
+                            '</div>');
+                            var additionalMessage = '¿En qué más puedo ayudarte?'
+                            $('#chatbox').append('<div style="margin-bottom: 10px; background-color:#0040B0; color: white; text-align: left; padding: 10px; border-radius: 5px; display:flex; align-items: flex-start;justify-content: flex-start;">' +
+                                '<img src="{% static "img/chatbot.png" %}" alt="Chatbot Avatar" class="chatbot-avatar" style="width:30px; height:30px;">' +
+                                '<div class="message-content chatbot" style="word-wrap: break-word;">' + additionalMessage + '</div>' +
+                                '</div>');
+                    }else{
+                        //recuadro de chatbot
+                        $('#chatbox').append('<div style="margin-bottom: 10px; background-color:#6ee481; width: fit-content; max-width: 65%; color: white; text-align: left; padding: 2px 5px; border-radius: 20px;  display: flex; flex-direction: column; align-items: center; position: relative; padding-left: 2%; margin-left: 40px;">' +
+                            '<img src="{% static "img/chatbot.png" %}" alt="Chatbot Avatar" class="chatbot-avatar" style="width:35px; height:35px; position: absolute; left: -40px; top: 50%; transform: translateY(-50%);">' +
+                            '<div class="message-content chatbot" style="max-width: calc(100% - 2px); word-wrap: break-word; text-align: left;">' + data.response + '</div>' +
+                            '</div>');
+                    }
+                    
+                    
+                    if (data.response === "I'm sorry, I don't understand your question. Could you rephrase it more clearly?") {
+                        saveUnrecognizedQuestion(user_input);
+                    }
+                    if (data.suggested_questions && data.suggested_questions.length > 0) {
+                        showSuggestedQuestions(data.suggested_questions);
+                    }
+                    $('#chatbox').scrollTop($('#chatbox')[0].scrollHeight);
+                    
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        function esPregunta(mensaje){
+            return mensaje.includes('¿');
+        }
+
+        function saveUnrecognizedQuestion(pregunta) {
+            // Realiza la llamada AJAX para guardar la pregunta no reconocida
+            var csrftoken = getCookie('csrftoken'); // Obtener el token CSRF
+            $.ajax({
+                type: 'POST',
+                url: '/chatbot/guardar_pregunta_no_reconocida/',
+                data: {
+                    'pregunta': pregunta, 
+                    'csrfmiddlewaretoken': csrftoken
+                },
+                dataType: 'json',
+                success: function(response) {
+                    console.log('Pregunta no reconocida guardada en Firebase');
+                },
+                error: function(error) {
+                    console.error('Error al guardar la pregunta no reconocida');
+                }
+            });
+        }
+
+        // Función para obtener el token CSRF de las cookies
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Obtener el valor del token CSRF
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // Capturar el evento de presionar la tecla "Enter"
+        document.getElementById("user-input").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Prevenir el comportamiento por defecto del Enter (enviar formulario)
+                sendMessage(); // Llamar a la función para enviar el mensaje
+            }
+        });
+
+        //
+        // Variable para almacenar el mensaje de bienvenida
+        var welcomeMessage = '';
+
+        $(document).ready(function() {
+            // Obtener la fecha actual
+            var currentDate = new Date();
+    
+            // Formatear la fecha como deseas
+            var formattedDate = currentDate.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Insertar la fecha en el chatbox arriba del mensaje de bienvenida
+            $('#chatbox').prepend('<div class="current-date" style="text-align: center; color: #0040B0; font-weight: bold; margin-bottom: 10px;">' + formattedDate + '</div>');
+
+
+            // Al cargar la página por primera vez, guarda el mensaje de bienvenida
+            welcomeMessage = $('#chatbox .welcome-message').html();
+
+            $('#btnPregunta').click(function() {
+                $('#input-container').hide(); // Ocultar el contenedor del input y el botón
+                $('#chatbox').empty(); // Limpiar el contenido del chatbox
+
+                // Cargar el contenido del instructivo.html en el chatbox
+                $('#chatbox').load('/chatbot/mostrar_instructivo/', function(response, status, xhr) {
+                    if (status == "error") {
+                        var msg = "Error al cargar el instructivo: ";
+                        console.log(msg + xhr.status + " " + xhr.statusText);
+                    } else {
+                        // Mostrar el instructivo y el botón para volver al chat
+                        $('#chatbox').append('<button id="volverChatbot"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>');
+                    }
+                });
+            });
+            
+            // Manejar el clic del botón "Volver al Chat"
+            $(document).on('click', '#volverChatbot', function() {
+                $('#chatbox').empty(); // Limpiar el contenido del chatbox
+                $('#input-container').show(); // Mostrar el contenedor del input y el botón
+                
+                // Insertar la fecha en el chatbox arriba del mensaje de bienvenida
+                $('#chatbox').prepend('<div class="current-date" style="text-align: center; color: #0040B0; font-weight: bold; margin-bottom: 10px;">' + formattedDate + '</div>');
+                // Mostrar el mensaje de bienvenida al volver al chatbot
+                $('#chatbox').append('<div class="welcome-message" style="margin-bottom: 10px; background-color: #0040B0;max-width: 60%; min-width: 200px; color: white; text-align: left; padding: 10px; border-radius: 5px;">' + welcomeMessage + '</div>');
+
+                // Lógica adicional si es necesario al volver al chatbot
+            });
+
+            $('#btnComentarios').click(function() {
+                $('#input-container').hide(); // Limpiar el contenido del input y el botón
+                $('#chatbox').empty(); // Limpiar el contenido del chatbox
+
+                // Cargar el contenido del comentarios.html en el chatbox
+                $('#chatbox').load('/chatbot/mostrar_comentarios/', function(response, status, xhr) {
+                    if (status == "error") {
+                        var msg = "Error al cargar comentarios: ";
+                        console.log(msg + xhr.status + " " + xhr.statusText);
+                    }else {
+                        // Mostrar el instructivo y el botón para volver al chat
+                        $('#chatbox').append('<button id="btnBackToChat"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>');
+                    }
+                });
+            });
+
+            // Manejar el clic del botón "Volver al Chat"
+            $(document).on('click', '#btnBackToChat', function() {
+                $('#chatbox').empty(); // Limpiar el contenido del chatbox, excluyendo el input-container
+                $('#input-container').show(); // Mostrar el contenedor del input y el botón
+            
+                // Insertar la fecha en el chatbox arriba del mensaje de bienvenida
+                $('#chatbox').prepend('<div class="current-date" style="text-align: center; color: #0040B0; font-weight: bold; margin-bottom: 10px;">' + formattedDate + '</div>');
+                // Mostrar el mensaje de bienvenida al volver al chatbot
+                $('#chatbox').append('<div class="welcome-message" style="margin-bottom: 10px; background-color: #0040B0; color: white; text-align: left; padding: 10px; border-radius: 5px;">' + welcomeMessage + '</div>');
+            
+                // Lógica adicional si es necesario al volver al chatbot
+            });                       
+
+            // Manejar el clic del botón de minimizar
+            $('#btnMinimize').click(function() {
+                $('#chat-content').toggle(); // Alternar visibilidad del contenido del chat
+            });
+        });
+
+
+        
+        
+    </script>
+    <div id="comentarios-container" style="display: none;">
+        <!-- Contenedor para cargar el HTML de comentarios -->
+    </div>
+    <div id="instructivo-container" style="display: none;">
+    </div>
+</body>
+</html>
