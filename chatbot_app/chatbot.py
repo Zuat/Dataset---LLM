@@ -62,7 +62,7 @@ def generate_response(prompt):
     similarity_threshold = 0.55  # Aumentamos el umbral para asegurar mayor precisión
 
     if similarities[best_intent_index] < similarity_threshold:
-        response = "Lo siento, no entiendo tu pregunta. ¿Puedes reformularla de manera más clara?"
+        response = "Sorry, I don't understand your question. Can you rephrase it more clearly?"
     else:
         response = random.choice(best_intent['responses'])
 
